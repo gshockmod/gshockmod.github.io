@@ -6,143 +6,181 @@
 <title>BuiltShock | Authentic G-Shocks</title>
 
 <style>
+/* ---------- RESET ---------- */
+* {
+  box-sizing: border-box;
+}
+
+/* ---------- COLORS ---------- */
 :root {
-  --black:#000;
-  --gray:#f5f5f5;
+  --black: #000;
+  --white: #fff;
 }
 
+/* ---------- BODY ---------- */
 body {
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--gray);
-  color:#111;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--black);
+  color: var(--white);
 }
 
-/* HEADER */
+/* ---------- HEADER ---------- */
 header {
-  background:#000;
-  color:#fff;
-  padding:16px 30px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  border-bottom: 1px solid #222;
 }
 
 .logo {
-  height:42px;
+  height: 42px;
 }
 
 .cart-btn {
-  cursor:pointer;
-  font-size:16px;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* CONTAINER */
+.cart-btn.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* ---------- CONTAINER ---------- */
 .container {
-  max-width:1200px;
-  margin:auto;
-  padding:30px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 30px;
 }
 
-/* PRODUCTS */
+/* ---------- TITLE ---------- */
+h2 {
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+/* ---------- GRID ---------- */
 .grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
 }
 
+/* ---------- PRODUCT CARD ---------- */
 .product {
-  background:#fff;
-  border-radius:14px;
-  padding:20px;
-  text-align:center;
+  border: 1px solid #222;
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.3s, border 0.3s;
+}
+
+.product:hover {
+  transform: translateY(-6px);
+  border: 1px solid var(--white);
 }
 
 .product img {
-  width:100%;
-  max-height:230px;
-  object-fit:contain;
-  cursor:pointer;
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .product h3 {
-  cursor:pointer;
+  margin: 20px 0 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .price {
-  font-size:18px;
-  font-weight:600;
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 
+/* ---------- BUTTON ---------- */
 button {
-  background:#000;
-  color:#fff;
-  border:none;
-  padding:12px;
-  border-radius:8px;
-  cursor:pointer;
-  width:100%;
-  font-size:15px;
-  margin-top:10px;
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 1px;
 }
 
 button:hover {
-  background:#222;
+  background: #e6e6e6;
 }
 
-/* MODAL */
+/* ---------- MODAL ---------- */
 .modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  justify-content:center;
-  align-items:center;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
-  background:#fff;
-  max-width:800px;
-  width:90%;
-  border-radius:16px;
-  padding:25px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:25px;
+  background: var(--black);
+  border: 1px solid var(--white);
+  width: 90%;
+  max-width: 850px;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
 }
 
 .modal img {
-  width:100%;
+  width: 100%;
 }
 
 .close {
-  position:absolute;
-  top:20px;
-  right:30px;
-  font-size:24px;
-  cursor:pointer;
-  color:#fff;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-/* PAGES */
-.page { display:none; }
+/* ---------- PAGES ---------- */
+.page {
+  display: none;
+}
 
+/* ---------- INPUTS ---------- */
 input {
-  width:100%;
-  padding:12px;
-  margin-bottom:15px;
-  border-radius:8px;
-  border:1px solid #ccc;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: #000;
+  border: 1px solid #333;
+  color: #fff;
 }
 
-/* FOOTER */
+/* ---------- FOOTER ---------- */
 footer {
-  background:#000;
-  color:#aaa;
-  text-align:center;
-  padding:15px;
-  margin-top:40px;
-  font-size:14px;
+  border-top: 1px solid #222;
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
 }
 </style>
 </head>
@@ -150,37 +188,39 @@ footer {
 <body>
 
 <header>
-  <img src="logo.png" alt="BuiltShock Logo" class="logo">
-  <div class="cart-btn" onclick="showCart()">🛒 Cart (<span id="cartCount">0</span>)</div>
+  <img src="logo.png" class="logo" alt="BuiltShock Logo">
+  <div id="cartBtn" class="cart-btn" onclick="showCart()">
+    🛒 Cart (<span id="cartCount">0</span>)
+  </div>
 </header>
 
 <div class="container">
 
 <!-- SHOP -->
 <div id="shop" class="page" style="display:block;">
-<h2>Featured Watches</h2>
+<h2>FEATURED</h2>
 
 <div class="grid">
 
 <div class="product">
   <img src="insta details .jpg" onclick="openProduct(0)">
-  <h3 onclick="openProduct(0)">G-Shock GA-2100</h3>
+  <h3 onclick="openProduct(0)">GA-2100</h3>
   <p class="price">$120</p>
-  <button onclick="quickAdd(0)">Add to Cart</button>
+  <button onclick="quickAdd(0)">ADD TO CART</button>
 </div>
 
 <div class="product">
   <img src="IMAGE2.jpg" onclick="openProduct(1)">
-  <h3 onclick="openProduct(1)">G-Shock DW-5600</h3>
+  <h3 onclick="openProduct(1)">DW-5600</h3>
   <p class="price">$95</p>
-  <button onclick="quickAdd(1)">Add to Cart</button>
+  <button onclick="quickAdd(1)">ADD TO CART</button>
 </div>
 
 <div class="product">
   <img src="IMAGE3.jpg" onclick="openProduct(2)">
-  <h3 onclick="openProduct(2)">G-Shock GBD-200</h3>
+  <h3 onclick="openProduct(2)">GBD-200</h3>
   <p class="price">$140</p>
-  <button onclick="quickAdd(2)">Add to Cart</button>
+  <button onclick="quickAdd(2)">ADD TO CART</button>
 </div>
 
 </div>
@@ -188,19 +228,19 @@ footer {
 
 <!-- CART -->
 <div id="cart" class="page">
-<h2>Your Cart</h2>
+<h2>CART</h2>
 <div id="cartItems"></div>
 <h3>Total: $<span id="total">0</span></h3>
-<button onclick="checkout()">Checkout</button>
+<button onclick="checkout()">CHECKOUT</button>
 </div>
 
 <!-- CHECKOUT -->
 <div id="checkout" class="page">
-<h2>Checkout</h2>
+<h2>CHECKOUT</h2>
 <input placeholder="Full Name">
 <input placeholder="Email">
 <input placeholder="Shipping Address">
-<button onclick="pay()">Pay Now</button>
+<button onclick="pay()">PAY NOW</button>
 </div>
 
 </div>
@@ -213,7 +253,7 @@ footer {
       <h2 id="modalTitle"></h2>
       <p id="modalDesc"></p>
       <p class="price">$<span id="modalPrice"></span></p>
-      <button onclick="addToCart()">Add to Cart</button>
+      <button onclick="addToCart()">ADD TO CART</button>
     </div>
   </div>
   <div class="close" onclick="closeModal()">✕</div>
@@ -225,60 +265,53 @@ footer {
 
 <script>
 const products = [
-  {
-    name:"G-Shock GA-2100",
-    price:120,
-    img:"insta details .jpg",
-    desc:"Carbon Core Guard structure. Ultra-slim, shock-resistant, everyday wear."
-  },
-  {
-    name:"G-Shock DW-5600",
-    price:95,
-    img:"IMAGE2.jpg",
-    desc:"Iconic square design. Classic G-Shock toughness with timeless style."
-  },
-  {
-    name:"G-Shock GBD-200",
-    price:140,
-    img:"IMAGE3.jpg",
-    desc:"Bluetooth, step tracking, modern performance G-Shock."
-  }
+  { name:"GA-2100", price:120, img:"insta details .jpg", desc:"Carbon Core Guard. Ultra-slim, everyday toughness." },
+  { name:"DW-5600", price:95, img:"IMAGE2.jpg", desc:"Iconic square G-Shock. Timeless and indestructible." },
+  { name:"GBD-200", price:140, img:"IMAGE3.jpg", desc:"Bluetooth fitness tracking with modern edge." }
 ];
 
 let cart = [];
 let currentProduct = null;
 
+function shakeCart() {
+  const cartBtn = document.getElementById("cartBtn");
+  cartBtn.classList.add("shake");
+  setTimeout(() => cartBtn.classList.remove("shake"), 400);
+}
+
 function openProduct(i){
   currentProduct = products[i];
-  modal.style.display="flex";
-  modalImg.src=currentProduct.img;
-  modalTitle.textContent=currentProduct.name;
-  modalPrice.textContent=currentProduct.price;
-  modalDesc.textContent=currentProduct.desc;
+  modal.style.display = "flex";
+  modalImg.src = currentProduct.img;
+  modalTitle.textContent = currentProduct.name;
+  modalPrice.textContent = currentProduct.price;
+  modalDesc.textContent = currentProduct.desc;
 }
 
 function closeModal(){
-  modal.style.display="none";
+  modal.style.display = "none";
 }
 
 function addToCart(){
   cart.push(currentProduct);
   cartCount.textContent = cart.length;
+  shakeCart();
   closeModal();
 }
 
-function quickAdd(index){
-  cart.push(products[index]);
+function quickAdd(i){
+  cart.push(products[i]);
   cartCount.textContent = cart.length;
+  shakeCart();
 }
 
 function showCart(){
   switchPage("cart");
-  cartItems.innerHTML="";
-  let total=0;
-  cart.forEach(item=>{
-    cartItems.innerHTML += `<p>${item.name} — $${item.price}</p>`;
-    total += item.price;
+  cartItems.innerHTML = "";
+  let total = 0;
+  cart.forEach(p => {
+    cartItems.innerHTML += `<p>${p.name} — $${p.price}</p>`;
+    total += p.price;
   });
   document.getElementById("total").textContent = total;
 }
@@ -292,11 +325,10 @@ function pay(){
 }
 
 function switchPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+  document.querySelectorAll(".page").forEach(p => p.style.display="none");
   document.getElementById(id).style.display="block";
 }
 </script>
 
 </body>
 </html>
-
