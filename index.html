@@ -1,28 +1,143 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>G-Shock Store</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GShockMod | Authentic G-Shocks</title>
+
   <style>
-    body { font-family: Arial; text-align: center; background: #f5f5f5; }
-    .card { background: white; padding: 20px; margin: 20px auto; width: 300px; border-radius: 10px; }
-    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+    }
+
+    header {
+      background: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .product h3 {
+      margin: 10px 0;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    button {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    footer {
+      background: #000;
+      color: #aaa;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>My G-Shock Store</h1>
+<header>
+  <h1>GSHOCKMOD</h1>
+  <p>Authentic • Tough • Street-Ready</p>
+</header>
 
-  <div class="card">
-    <h2>G-Shock GA-2100</h2>
-    <p>$120</p>
-    <button onclick="buy()">Buy Now</button>
+<div class="container">
+  <h2>Featured Watches</h2>
+
+  <div class="grid">
+
+    <div class="product">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Casio_G-Shock_GA-2100.jpg">
+      <h3>G-Shock GA-2100</h3>
+      <p class="price">$120</p>
+      <button onclick="buy1()">Buy Now</button>
+    </div>
+
+    <div class="product">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Casio_G-Shock_DW-5600.jpg">
+      <h3>G-Shock DW-5600</h3>
+      <p class="price">$95</p>
+      <button onclick="buy2()">Buy Now</button>
+    </div>
+
+    <div class="product">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Casio_G-Shock_GBD-200.jpg">
+      <h3>G-Shock GBD-200</h3>
+      <p class="price">$140</p>
+      <button onclick="buy3()">Buy Now</button>
+    </div>
+
   </div>
+</div>
 
-  <script>
-    function buy() {
-      window.location.href = "PASTE_STRIPE_LINK_HERE";
-    }
-  </script>
+<footer>
+  © 2026 GShockMod • All watches guaranteed authentic
+</footer>
+
+<script>
+  function buy1() {
+    window.location.href = "PASTE_STRIPE_LINK_1";
+  }
+  function buy2() {
+    window.location.href = "PASTE_STRIPE_LINK_2";
+  }
+  function buy3() {
+    window.location.href = "PASTE_STRIPE_LINK_3";
+  }
+</script>
 
 </body>
 </html>
+
