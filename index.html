@@ -1,358 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BuiltShock | Authentic G-Shocks</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuiltShock | Authentic G-Shocks</title>
+    <style>
+        /* ---------- RESET & CORE ---------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --black: #050505;
+            --white: #ffffff;
+            --light-gray: #f5f5f7;
+            --border: #e0e0e0;
+            --accent: #d0021b; /* Traditional G-Shock Red */
+        }
 
-<style>
-/* ---------- RESET ---------- */
-* {
-  box-sizing: border-box;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
 
-/* ---------- COLORS ---------- */
-:root {
-  --black: #000;
-  --white: #fff;
-  --gray: #666;
-}
+        /* ---------- HEADER ---------- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
 
-/* ---------- BODY ---------- */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--white);
-  color: var(--black);
-}
+        .logo-container {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
 
-/* ---------- HEADER ---------- */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 30px;
-  background: var(--black);
-  color: var(--white);
-  border-bottom: 1px solid #222;
-}
+        .logo {
+            height: 30px; /* Scaled to professional size */
+            width: auto;
+            vertical-align: middle;
+        }
 
-.logo {
-  height: 42px; /* mobile */
-}
+        .nav-right {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
 
-/* MASSIVE logo on desktop */
-@media (min-width: 1024px) {
-  .logo {
-    height: 420px; /* ~10x bigger, visually insane */
-  }
-}
+        .cart-btn {
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
 
+        /* ---------- GRID & LAYOUT ---------- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
 
-.cart-btn {
-  cursor: pointer;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+        h2.section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #888;
+            margin-bottom: 40px;
+            text-align: center;
+        }
 
-/* ---------- CART SHAKE ---------- */
-.cart-btn.shake {
-  animation: shake 0.4s;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
 
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-4px); }
-  100% { transform: translateX(0); }
-}
+        /* ---------- PRODUCT CARD ---------- */
+        .product {
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
 
-/* ---------- CONTAINER (WHITE MIDDLE) ---------- */
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 40px 30px;
-  background: var(--white);
-}
+        .product:hover {
+            transform: translateY(-8px);
+        }
 
-/* ---------- TITLE ---------- */
-h2 {
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-  font-weight: 600;
-}
+        .image-wrap {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 20px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-/* ---------- GRID ---------- */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
+        .product img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
 
-/* ---------- PRODUCT CARD ---------- */
-.product {
-  border: 1px solid #ddd;
-  padding: 25px;
-  text-align: center;
-  transition: transform 0.3s, border 0.3s;
-  background: #fff;
-}
+        .product h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
 
-.product:hover {
-  transform: translateY(-6px);
-  border: 1px solid #000;
-}
+        .price {
+            font-weight: 400;
+            color: #555;
+            margin-bottom: 15px;
+            display: block;
+        }
 
-.product img {
-  width: 100%;
-  max-height: 240px;
-  object-fit: contain;
-  cursor: pointer;
-}
+        /* ---------- BUTTONS ---------- */
+        .btn {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 14px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
 
-.product h3 {
-  margin: 20px 0 5px;
-  cursor: pointer;
-  letter-spacing: 1px;
-}
+        .btn:hover { background: #333; }
 
-.price {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
+        .btn-outline {
+            background: transparent;
+            color: var(--black);
+            border: 1px solid var(--black);
+            margin-top: 10px;
+        }
 
-/* ---------- BUTTON ---------- */
-button {
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 12px;
-  width: 100%;
-  font-size: 14px;
-  cursor: pointer;
-  letter-spacing: 1px;
-}
+        /* ---------- MODAL ---------- */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.98);
+            z-index: 1000;
+            padding: 40px;
+            overflow-y: auto;
+        }
 
-button:hover {
-  background: #222;
-}
+        .modal-content {
+            max-width: 1000px;
+            margin: 60px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
 
-/* ---------- MODAL ---------- */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  justify-content: center;
-  align-items: center;
-}
+        @media (max-width: 768px) {
+            .modal-content { grid-template-columns: 1fr; gap: 30px; }
+            .modal { padding: 20px; }
+        }
 
-.modal-content {
-  background: var(--white);
-  border: 1px solid var(--black);
-  width: 90%;
-  max-width: 850px;
-  padding: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-}
+        .close {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1001;
+        }
 
-.modal img {
-  width: 100%;
-}
+        /* ---------- CART & CHECKOUT ---------- */
+        .page { display: none; }
+        .active-page { display: block; }
 
-.close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 24px;
-  cursor: pointer;
-  color: white;
-}
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 16px;
+        }
 
-/* ---------- PAGES ---------- */
-.page {
-  display: none;
-}
+        footer {
+            margin-top: 100px;
+            padding: 60px 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
 
-/* ---------- INPUTS ---------- */
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  background: #fff;
-  border: 1px solid #ccc;
-  color: #000;
-}
-
-/* ---------- FOOTER ---------- */
-footer {
-  background: var(--black);
-  border-top: 1px solid #222;
-  padding: 20px;
-  text-align: center;
-  font-size: 13px;
-  color: #aaa;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <img src="logo copy.png" class="logo" alt="BuiltShock Logo">
-  <div id="cartBtn" class="cart-btn" onclick="showCart()">
-    🛒 Cart (<span id="cartCount">0</span>)
-  </div>
-</header>
-
-<div class="container">
-
-<!-- SHOP -->
-<div id="shop" class="page" style="display:block;">
-<h2>FEATURED</h2>
-
-<div class="grid">
-
-<div class="product">
-  <img src="Untitled-2.jpg" onclick="openProduct(0)">
-  <h3 onclick="openProduct(0)">GA-2100</h3>
-  <p class="price">$120</p>
-  <button onclick="quickAdd(0)">ADD TO CART</button>
-</div>
-
-<div class="product">
-  <img src="IMAGE2.jpg" onclick="openProduct(1)">
-  <h3 onclick="openProduct(1)">DW-5600</h3>
-  <p class="price">$95</p>
-  <button onclick="quickAdd(1)">ADD TO CART</button>
-</div>
-
-<div class="product">
-  <img src="IMAGE3.jpg" onclick="openProduct(2)">
-  <h3 onclick="openProduct(2)">GBD-200</h3>
-  <p class="price">$140</p>
-  <button onclick="quickAdd(2)">ADD TO CART</button>
-</div>
-
-</div>
-</div>
-
-<!-- CART -->
-<div id="cart" class="page">
-<h2>CART</h2>
-<div id="cartItems"></div>
-<h3>Total: $<span id="total">0</span></h3>
-<button onclick="checkout()">CHECKOUT</button>
-</div>
-
-<!-- CHECKOUT -->
-<div id="checkout" class="page">
-<h2>CHECKOUT</h2>
-<input placeholder="Full Name">
-<input placeholder="Email">
-<input placeholder="Shipping Address">
-<button onclick="pay()">PAY NOW</button>
-</div>
-
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <img id="modalImg">
-    <div>
-      <h2 id="modalTitle"></h2>
-      <p id="modalDesc"></p>
-      <p class="price">$<span id="modalPrice"></span></p>
-      <button onclick="addToCart()">ADD TO CART</button>
-    </div>
-  </div>
-  <div class="close" onclick="closeModal()">✕</div>
-</div>
-
-<footer>
-© 2026 BuiltShock • Guaranteed Authentic
-</footer>
-
-<script>
-const products = [
-  { name:"GA-2100", price:120, img:"insta-details.jpg", desc:"Carbon Core Guard. Ultra-slim, everyday toughness." },
-  { name:"DW-5600", price:95, img:"IMAGE2.jpg", desc:"Iconic square G-Shock. Timeless and indestructible." },
-  { name:"GBD-200", price:140, img:"IMAGE3.jpg", desc:"Bluetooth fitness tracking with modern edge." }
-];
-
-let cart = [];
-let currentProduct = null;
-
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modalImg");
-const modalTitle = document.getElementById("modalTitle");
-const modalPrice = document.getElementById("modalPrice");
-const modalDesc = document.getElementById("modalDesc");
-const cartCount = document.getElementById("cartCount");
-const cartItems = document.getElementById("cartItems");
-
-function shakeCart() {
-  const cartBtn = document.getElementById("cartBtn");
-  cartBtn.classList.add("shake");
-  setTimeout(() => cartBtn.classList.remove("shake"), 400);
-}
-
-function openProduct(i){
-  currentProduct = products[i];
-  modal.style.display = "flex";
-  modalImg.src = currentProduct.img;
-  modalTitle.textContent = currentProduct.name;
-  modalPrice.textContent = currentProduct.price;
-  modalDesc.textContent = currentProduct.desc;
-}
-
-function closeModal(){
-  modal.style.display = "none";
-}
-
-function addToCart(){
-  cart.push(currentProduct);
-  cartCount.textContent = cart.length;
-  shakeCart();
-  closeModal();
-}
-
-function quickAdd(i){
-  cart.push(products[i]);
-  cartCount.textContent = cart.length;
-  shakeCart();
-}
-
-function showCart(){
-  switchPage("cart");
-  cartItems.innerHTML = "";
-  let total = 0;
-  cart.forEach(p => {
-    cartItems.innerHTML += `<p>${p.name} — $${p.price}</p>`;
-    total += p.price;
-  });
-  document.getElementById("total").textContent = total;
-}
-
-function checkout(){
-  switchPage("checkout");
-}
-
-function pay(){
-  alert("Stripe checkout goes here");
-}
-
-function switchPage(id){
-  document.querySelectorAll(".page").forEach(p => p.style.display="none");
-  document.getElementById(id).style.display="block";
-}
-</script>
-
-</body>
-</html>
+        /* SHAKE ANIMATION */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5
