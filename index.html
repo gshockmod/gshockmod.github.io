@@ -1,215 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuiltShock | Authentic G-Shocks</title>
-    <style>
-        /* ---------- RESET & CORE ---------- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        :root {
-            --black: #050505;
-            --white: #ffffff;
-            --light-gray: #f5f5f7;
-            --border: #e0e0e0;
-            --accent: #d0021b; /* Traditional G-Shock Red */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuiltShock | Authentic G-Shocks</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-            background: var(--white);
-            color: var(--black);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+<style>
+/* ---------- RESET & VARIABLES ---------- */
+:root {
+  --black: #111;
+  --white: #fff;
+  --red: #D32F2F; /* G-Shock Red Accent */
+  --gray: #f4f4f4;
+  --border: 2px solid var(--black);
+}
 
-        /* ---------- HEADER ---------- */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border);
-        }
+* { box-sizing: border-box; }
 
-        .logo-container {
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: -0.5px;
-            cursor: pointer;
-        }
+body {
+  margin: 0;
+  font-family: 'Roboto Mono', monospace; /* Technical font */
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+}
 
-        .logo {
-            height: 30px; /* Scaled to professional size */
-            width: auto;
-            vertical-align: middle;
-        }
+h1, h2, h3, button {
+  font-family: 'Oswald', sans-serif; /* Bold headline font */
+  text-transform: uppercase;
+  margin: 0;
+}
 
-        .nav-right {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
+/* ---------- HEADER ---------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: var(--white);
+  border-bottom: var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-        .cart-btn {
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
+.logo-text {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-decoration: none;
+  color: var(--black);
+}
 
-        /* ---------- GRID & LAYOUT ---------- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
+.logo-text span { color: var(--red); }
 
-        h2.section-title {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #888;
-            margin-bottom: 40px;
-            text-align: center;
-        }
+.cart-btn {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
+.cart-btn:hover {
+  background: var(--black);
+  color: var(--white);
+}
 
-        /* ---------- PRODUCT CARD ---------- */
-        .product {
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-        }
+.cart-btn.shake { animation: shake 0.4s; }
 
-        .product:hover {
-            transform: translateY(-8px);
-        }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%, 75% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+}
 
-        .image-wrap {
-            background: var(--light-gray);
-            border-radius: 8px;
-            padding: 40px;
-            margin-bottom: 20px;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+/* ---------- HERO SECTION ---------- */
+.hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 80px 20px;
+  text-align: center;
+  border-bottom: var(--border);
+}
 
-        .product img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            mix-blend-mode: multiply;
-        }
+.hero h1 {
+  font-size: clamp(40px, 8vw, 80px); /* Responsive text */
+  line-height: 1;
+  margin-bottom: 20px;
+}
 
-        .product h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
+.hero p {
+  color: #ccc;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-        .price {
-            font-weight: 400;
-            color: #555;
-            margin-bottom: 15px;
-            display: block;
-        }
+/* ---------- CONTAINER ---------- */
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 60px 20px;
+}
 
-        /* ---------- BUTTONS ---------- */
-        .btn {
-            background: var(--black);
-            color: var(--white);
-            border: none;
-            padding: 14px 24px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
+/* ---------- GRID ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0; /* Removing gap for a grid-border look */
+  border: var(--border);
+  background: var(--black); /* Borders color */
+}
 
-        .btn:hover { background: #333; }
+/* ---------- PRODUCT CARD ---------- */
+.product {
+  background: var(--white);
+  padding: 40px;
+  text-align: left;
+  position: relative;
+  transition: transform 0.2s;
+  border: 1px solid #eee; /* Inner light borders */
+}
 
-        .btn-outline {
-            background: transparent;
-            color: var(--black);
-            border: 1px solid var(--black);
-            margin-top: 10px;
-        }
+.product:hover {
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--black); /* Bold highlight */
+}
 
-        /* ---------- MODAL ---------- */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(255,255,255,0.98);
-            z-index: 1000;
-            padding: 40px;
-            overflow-y: auto;
-        }
+.product img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  mix-blend-mode: multiply; /* Helps transparent PNGs blend */
+  cursor: pointer;
+}
 
-        .modal-content {
-            max-width: 1000px;
-            margin: 60px auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
+.product h3 { font-size: 24px; margin-bottom: 5px; }
+.desc-short { font-size: 12px; color: #666; margin-bottom: 15px; }
 
-        @media (max-width: 768px) {
-            .modal-content { grid-template-columns: 1fr; gap: 30px; }
-            .modal { padding: 20px; }
-        }
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
 
-        .close {
-            position: fixed;
-            top: 30px;
-            right: 40px;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 1001;
-        }
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--red);
+}
 
-        /* ---------- CART & CHECKOUT ---------- */
-        .page { display: none; }
-        .active-page { display: block; }
+/* ---------- BUTTONS ---------- */
+button.add-btn {
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
 
-        input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 16px;
-        }
+button.add-btn:hover {
+  background: var(--red);
+}
 
-        footer {
-            margin-top: 100px;
-            padding: 60px 20px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-        }
+/* ---------- CART PAGE ---------- */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  background: #fafafa;
+  margin-bottom: 10px;
+}
+.remove-btn {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 5px 10px;
+  font-size: 10px;
+}
+.remove-btn:hover { background: var(--red); color: white; }
 
-        /* SHAKE ANIMATION */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5
+/* ---------- CHECKOUT FORM ---------- */
+input {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 2px solid #ccc;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+}
+input:focus {
+  outline: none;
+  border-color: var(--black);
+}
+
+/* ---------- MODAL ---------- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--white);
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 4px solid var(--white);
+}
+
+/* Mobile Layout for Modal */
+@media (max-width: 768px) {
+  .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
+  .grid { gap: 20px; border: none; background: transparent; }
+  .product { border: var(--border); }
+}
+
+.modal-left {
+  background: #f4f4f4;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-left img { max-width: 100%; max-height: 300px; mix-blend-mode: multiply;}
+
+.modal-right { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+
+.close {
+  position: absolute;
+  top: 20px; right: 30px;
+  color: white; font-size: 40px; cursor: pointer;
+}
+
+/* ---------- UTILITIES ---------- */
+.page { display: none; animation: fadeIn 0.3s; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+
+footer {
+  background: var(--black);
+  color: #666;
+  text-align: center;
+  padding: 40px;
+  font-size: 12px;
+  border-top: 5px solid var(--red);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="#" class="logo-text" onclick="switchPage('shop')">BUILT<span>SHOCK</span></a>
+  
+  <div id="cartBtn" class="cart-btn" onclick="showCart()">
+    CART [<span id="cartCount">0</span>]
+  </div>
+</header>
+
+<div id="shop" class="page active">
+  <div class="hero">
+    <h1>ABSOLUTE TOUGHNESS</h1>
+    <p>Engineered to withstand the harshest environments on Earth.</p>
+  </div>
+
+  <div class="container">
+    <h2>NEW ARRIVALS</h2>
+    <br>
+    <div class="grid" id="productGrid">
+      </div>
+  </div>
+</div>
+
+<div id="cart" class="page">
+  <div class="container" style="max-width: 800px;">
+    <h2>YOUR GEAR</h2>
+    <div style="height: 2px; background: var(--black); width: 50px; margin: 20px 0;"></div>
+    
+    <div id="cartItems"></div>
+    
+    <div style="margin-top: 30px; text-align: right;">
+      <h3>TOTAL: $<span id="total">0</span></h3>
+      <br>
+      <button class="add-btn" style="width: 100%; padding: 20px;" onclick="switchPage('checkout')">PROCEED TO CHECKOUT</button>
+      <br><br>
+      <button style="background:none; border:none; text-decoration:underline; cursor:pointer;" onclick="switchPage('shop')">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<div id="checkout" class="page">
+  <div class="container" style="max-width: 600px;">
+    <h2>SECURE CHECKOUT</h2>
+    <p style="margin-bottom: 30px; font-size: 14px; color: #666;">Enter your details to finalize your order.</p>
+    
+    <form onsubmit="event.preventDefault(); pay();">
+      <input type="text" placeholder="FULL NAME" required>
+      <input type="email" placeholder="EMAIL ADDRESS" required>
+      <input type="text" placeholder="SHIPPING ADDRESS" required>
+      <input type="text" placeholder="CARD NUMBER" required>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <input type="text" placeholder="MM/YY" required>
+        <input type="text" placeholder="CVC" required>
+      </div>
+      
+      <button class="add-btn" style="width: 100%; padding: 20px; margin-top: 10px;">PAY NOW</button>
+    </form>
+    <br>
+    <button style="background:none; border:none; text-decoration:underline; cursor:pointer; width: 100%;" onclick="switchPage('cart')">Back to Cart</button>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="close" onclick="closeModal()">✕</div>
+  <div class="modal-content">
+    <div class="modal-left">
+      <img id="modalImg" src="" alt="Watch">
+    </div>
+    <div class="modal-right">
+      <h2 id="modalTitle" style="font-size: 40px; line-height: 1;"></h2>
+      <h3 style="color: var(--red); margin: 10px 0 20px;" id="modalPrice"></h3>
+      <p id="modalDesc" style="color: #444; margin-bottom: 30px;"></p>
+      
+      <button class="add-btn" style="padding: 20px;" onclick="addCurrentToCart()">ADD TO CART</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  BUILTSHOCK © 2026<br>
+  OFFICIAL DEALER • GUARANTEED AUTHENTIC
+</footer>
+
+<script>
+/* NOTE: I have put placeholder images here. 
+   Replace the 'img' urls with your actual file names (e.g., "Untitled-2.jpg").
+*/
+const products = [
+  { 
+    id: 0,
+    name: "GA-2100-1A", 
+    price: 120, 
+    img: "https://placehold.co/400x400/png?text=GA-2100", 
+    desc: "The 'CasiOak'. Carbon Core Guard structure. Ultra-slim profile with octagonal bezel.",
+    short: "CARBON CORE • ANALOG-DIGITAL"
+  },
+  { 
+    id: 1,
+    name: "DW-5600BB", 
+    price: 95, 
+    img: "https://placehold.co/400x400/png?text=DW-5600", 
+    desc: "The origin. Iconic square design in a matte all-black finish. Electro-luminescent backlight.",
+    short: "ORIGIN SERIES • 200M WATER RESIST"
+  },
+  { 
+    id: 2,
+    name: "GBD-200-1", 
+    price: 140, 
+    img: "https://placehold.co/400x400/png?text=GBD-200", 
+    desc: "G-SQUAD. Bluetooth smartphone link for distance calibration and fitness tracking.",
+    short: "BLUETOOTH • STEP TRACKER"
+  },
+  { 
+    id: 3,
+    name: "GA-700-1B", 
+    price: 110, 
+    img: "https://placehold.co/400x400/png?text=GA-700", 
+    desc: "Super illuminator LED light. 3D hands and bold front button.",
+    short: "SUPER ILLUMINATOR • 3D FACE"
+  }
+];
+
+let cart = [];
+let activeProductIndex = null;
+
+// DOM Elements
+const grid = document.getElementById("productGrid");
+const cartCount = document.getElementById("cartCount");
+const modal = document.getElementById("modal");
+
+// 1. Initialize Shop
+function initShop() {
+  grid.innerHTML = "";
+  products.forEach((p, index) => {
+    grid.innerHTML += `
+      <div class="product">
+        <img src="${p.img}" onclick="openProduct(${index})" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p class="desc-short">${p.short}</p>
+        <div class="price-row">
+          <span class="price">$${p.price}</span>
+          <button class="add-btn" onclick="addToCart(${index})">ADD +</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+// 2. Navigation
+function switchPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// 3. Cart Logic
+function addToCart(index) {
+  cart.push(products[index]);
+  updateCartUI();
+  shakeCartBtn();
+}
+
+function removeFromCart(cartIndex) {
+  cart.splice(cartIndex, 1);
+  updateCartUI();
+  renderCartPage(); // Re-render the cart list
+}
+
+function updateCartUI() {
+  cartCount.textContent = cart.length;
+}
+
+function shakeCartBtn() {
+  const btn = document.getElementById("cartBtn");
+  btn.classList.add("shake");
+  setTimeout(() => btn.classList.remove("shake"), 400);
+}
+
+// 4. Show Cart Page
+function showCart() {
+  switchPage('cart');
+  renderCartPage();
+}
+
+function renderCartPage() {
+  const container = document.getElementById("cartItems");
+  const totalEl = document.getElementById("total");
+  
+  if(cart.length === 0) {
+    container.innerHTML = "<p>Your cart is empty.</p>";
+    totalEl.textContent = "0";
+    return;
+  }
+
+  container.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, idx) => {
+    total += item.price;
+    container.innerHTML += `
+      <div class="cart-item">
+        <div>
+          <strong>${item.name}</strong><br>
+          <small style="color:#666">$${item.price}</small>
+        </div>
+        <button class="remove-btn" onclick="removeFromCart(${idx})">REMOVE</button>
+      </div>
+    `;
+  });
+  
+  totalEl.textContent = total;
+}
+
+// 5. Modal Logic
+function openProduct(index) {
+  activeProductIndex = index;
+  const p = products[index];
+  
+  document.getElementById("modalImg").src = p.img;
+  document.getElementById("modalTitle").textContent = p.name;
+  document.getElementById("modalPrice").textContent = "$" + p.price;
+  document.getElementById("modalDesc").textContent = p.desc;
+  
+  modal.style.display = "flex";
+}
+
+function addCurrentToCart() {
+  if (activeProductIndex !== null) {
+    addToCart(activeProductIndex);
+    closeModal();
+  }
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+// Close modal if clicking outside
+window.onclick = function(event) {
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+
+function pay() {
+  alert("Processing Payment... (Integration Required)");
+  cart = [];
+  updateCartUI();
+  switchPage('shop');
+}
+
+// Run on load
+initShop();
+
+</script>
+
+</body>
+</html>
