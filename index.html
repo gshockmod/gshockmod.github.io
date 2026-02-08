@@ -38,15 +38,16 @@ header {
 }
 
 .logo {
-  height: 42px;
+  height: 42px; /* mobile */
 }
 
-/* Bigger logo on desktop */
-@media (min-width: 768px) {
+/* MASSIVE logo on desktop */
+@media (min-width: 1024px) {
   .logo {
-    height: 64px;
+    height: 420px; /* ~10x bigger, visually insane */
   }
 }
+
 
 .cart-btn {
   cursor: pointer;
