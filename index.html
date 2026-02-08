@@ -7,255 +7,215 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- APPLE-INSPIRED VARIABLES ---------- */
+/* ---------- VARIABLES ---------- */
 :root {
-  --bg-body: #f5f5f7; /* Apple's signature light gray background */
+  --bg-body: #f5f5f7;
   --bg-card: #ffffff;
-  --text-main: #1d1d1f; /* Soft black */
-  --text-secondary: #86868b; /* Apple gray */
-  --accent-blue: #0071e3; /* Apple CTA Blue */
+  --text-main: #1d1d1f;
+  --text-secondary: #86868b;
+  --accent-blue: #0071e3;
   --accent-blue-hover: #0077ed;
   --radius-lg: 18px;
   --radius-sm: 12px;
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
-  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
   --nav-blur: rgba(255, 255, 255, 0.8);
-  --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition: all 0.3s ease;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Inter", -apple-system, sans-serif;
   background: var(--bg-body);
   color: var(--text-main);
-  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  padding-bottom: 100px;
 }
 
-h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; }
-button { font-family: inherit; }
-
-/* ---------- HEADER (Frosted Glass) ---------- */
+/* ---------- HEADER ---------- */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-  height: 54px; /* Apple standard nav height */
+  height: 54px;
   background: var(--nav-blur);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
+.nav-left {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 12px;
+  text-decoration: none;
+  color: var(--text-main);
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.nav-link:hover { opacity: 1; }
+
 .logo-text {
   font-size: 18px;
   font-weight: 600;
   text-decoration: none;
   color: var(--text-main);
-  transition: opacity 0.2s;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
-.logo-text:hover { opacity: 0.7; }
+.logo-text img { height: 24px; vertical-align: middle; }
 
 .cart-btn {
-  font-size: 13px;
-  color: var(--text-main);
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 20px;
-  transition: var(--transition);
+  font-size: 12px;
   background: rgba(0,0,0,0.05);
-}
-.cart-btn:hover { background: rgba(0,0,0,0.1); }
-
-/* ---------- HERO SECTION ---------- */
-.hero {
-  background: var(--bg-card);
-  padding: 120px 20px 80px;
-  text-align: center;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-.hero h1 {
-  font-size: clamp(48px, 6vw, 80px);
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: #000;
-}
+/* ---------- LAYOUT ---------- */
+.page { display: none; opacity: 0; padding-top: 40px; animation: fadeIn 0.5s forwards; }
+.page.active { display: block; }
+@keyframes fadeIn { to { opacity: 1; } }
 
-.hero p {
-  font-size: 21px;
-  line-height: 1.4;
-  font-weight: 400;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-}
+.container { max-width: 1080px; margin: auto; padding: 0 20px; }
 
-/* ---------- CONTAINER ---------- */
-.container {
-  max-width: 1080px; /* Tighter container for premium feel */
-  margin: auto;
-  padding: 80px 20px;
-}
-
-.section-title {
-  font-size: 40px;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-/* ---------- PRODUCT GRID ---------- */
+/* ---------- GRID ---------- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
 }
 
-/* ---------- PRODUCT CARD ---------- */
 .product {
   background: var(--bg-card);
   padding: 40px;
   border-radius: var(--radius-lg);
   text-align: center;
-  transition: var(--transition);
   cursor: pointer;
+  transition: transform 0.3s;
   position: relative;
-  overflow: hidden;
   box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
 }
-
-.product:hover {
-  transform: scale(1.02);
-  box-shadow: var(--shadow-hover);
-}
+.product:hover { transform: scale(1.02); }
 
 .product img {
   width: 100%;
-  max-width: 220px;
-  height: auto;
-  margin-bottom: 30px;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
-  transition: transform 0.5s ease;
-}
-
-.product:hover img { transform: translateY(-5px) scale(1.05); }
-
-.product-tag {
-  font-size: 12px;
-  font-weight: 600;
-  color: #bf4800; /* Apple "New" orange */
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-}
-
-.product h3 {
-  font-size: 24px;
-  margin-bottom: 8px;
-  color: var(--text-main);
-}
-
-.price {
-  font-size: 17px;
-  color: var(--text-main);
+  max-height: 250px;
+  object-fit: contain;
   margin-bottom: 20px;
+  mix-blend-mode: multiply;
 }
 
-/* ---------- BUTTONS ---------- */
-button.add-btn {
-  background: var(--accent-red);
+.upload-overlay {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 10px; right: 10px;
+  background: black;
   color: white;
-  border: none;
-  padding: 10px 22px;
-  font-size: 14px;
-  border-radius: 980px; /* Pill shape */
+  font-size: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: var(--transition);
-  font-weight: 500;
+  z-index: 10;
 }
 
-button.add-btn:hover {
-  background: var(--accent-blue-hover);
-  transform: translateY(-1px);
-}
-
-/* ---------- CART & CHECKOUT ---------- */
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 25px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-.cart-item img { width: 60px; height: auto; margin-right: 20px; }
-.cart-item-info { flex-grow: 1; }
-
-.remove-btn {
-  background: transparent;
-  color: var(--accent-blue);
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-}
-.remove-btn:hover { text-decoration: underline; }
-
-/* ---------- FORM ELEMENTS ---------- */
-form { margin-top: 30px; }
-
-input {
-  display: block;
-  width: 100%;
-  padding: 18px 16px;
-  margin-bottom: 15px;
-  border: 1px solid #d2d2d7;
-  border-radius: var(--radius-sm);
-  font-family: inherit;
-  font-size: 17px;
-  background: rgba(255,255,255,0.8);
-  transition: var(--transition);
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
-}
-
-input::placeholder { color: #86868b; }
-
-.input-group {
+/* ---------- PRODUCT DETAIL VIEW ---------- */
+.detail-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 60px;
+  background: var(--bg-card);
+  padding: 60px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  margin-top: 20px;
 }
 
-/* ---------- UTILITIES ---------- */
-.page { display: none; opacity: 0; transition: opacity 0.5s; }
-.page.active { display: block; opacity: 1; animation: fadeInUp 0.6s ease forwards; }
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@media (max-width: 768px) {
+  .detail-container { grid-template-columns: 1fr; padding: 30px; }
 }
 
-footer {
-  background: var(--bg-body);
-  color: var(--text-secondary);
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.main-image {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  background: #f9f9f9;
+  border-radius: var(--radius-sm);
+  mix-blend-mode: multiply;
+}
+.thumbnail-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+.thumb {
+  width: 80px;
+  height: 80px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  cursor: pointer;
+  object-fit: contain;
+  border: 2px solid transparent;
+}
+.thumb.selected { border-color: var(--accent-blue); }
+
+.info h1 { font-size: 40px; margin-bottom: 10px; }
+.info .price { font-size: 24px; color: var(--text-secondary); margin-bottom: 30px; }
+.info .desc { line-height: 1.6; color: #555; margin-bottom: 40px; }
+
+button.primary-btn {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 500;
+}
+button.primary-btn:hover { background: var(--accent-blue-hover); }
+
+/* ---------- ADMIN / FOOTER ---------- */
+.admin-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #111;
+  color: #fff;
+  padding: 10px;
   text-align: center;
-  padding: 60px 20px;
   font-size: 12px;
-  border-top: 1px solid rgba(0,0,0,0.05);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
 }
+.admin-toggle {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #aaa;
+}
+.admin-toggle:hover { color: white; }
 
 </style>
 </head>
@@ -263,183 +223,230 @@ footer {
 <body>
 
 <header>
-  <a href="#" class="logo-text" onclick="switchPage('shop')">BuiltShock</a>
-  <div id="cartBtn" class="cart-btn" onclick="showCart()">
+  <div class="nav-left">
+    <a onclick="switchPage('contact')" class="nav-link">Contact</a>
+    <a onclick="switchPage('shop')" class="nav-link">Shop</a>
+  </div>
+
+  <a href="#" class="logo-text" onclick="switchPage('shop')" id="logoContainer">
+    BuiltShock
+  </a>
+  <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="updateLogo(this)">
+
+  <div class="cart-btn" onclick="switchPage('cart')">
     Bag (<span id="cartCount">0</span>)
   </div>
 </header>
 
 <div id="shop" class="page active">
-  <div class="hero">
-    <h1>Absolute Toughness.</h1>
-    <p>Engineered to withstand the harshest environments on Earth.<br>Refined for everyday life.</p>
-  </div>
-
   <div class="container">
-    <h2 class="section-title">The Collection.</h2>
     <div class="grid" id="productGrid">
       </div>
   </div>
 </div>
 
-<div id="cart" class="page">
-  <div class="container" style="max-width: 700px;">
-    <h2 class="section-title">Your Bag.</h2>
-    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">Free delivery and free returns.</p>
-    
-    <div id="cartItems"></div>
-    
-    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
-      <div style="font-size: 24px; font-weight: 600;">Total <span id="total" style="color:var(--text-secondary); margin-left: 10px;">$0</span></div>
-      <button class="add-btn" style="padding: 15px 40px; font-size: 17px;" onclick="switchPage('checkout')">Check Out</button>
+<div id="product-detail" class="page">
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <a onclick="switchPage('shop')" style="cursor:pointer; color:var(--text-secondary); font-size:14px;">&larr; Back to Shop</a>
     </div>
-    <div style="text-align: center; margin-top: 20px;">
-        <span onclick="switchPage('shop')" style="color: var(--accent-blue); cursor: pointer; font-size: 15px;">Continue Shopping</span>
-    </div>
-  </div>
-</div>
-
-<div id="checkout" class="page">
-  <div class="container" style="max-width: 500px;">
-    <h2 class="section-title">Checkout.</h2>
     
-    <form onsubmit="event.preventDefault(); processPayment();">
-      <div style="margin-bottom: 30px;">
-        <h3 style="margin-bottom: 15px; font-size: 19px;">Shipping</h3>
-        <input type="text" placeholder="First Name" required>
-        <input type="text" placeholder="Last Name" required>
-        <input type="text" placeholder="Street Address" required>
-        <input type="email" placeholder="Email Address" required>
+    <div class="detail-container">
+      <div class="gallery">
+        <img id="detailMainImg" class="main-image" src="">
+        
+        <div class="thumbnail-row" id="thumbRow">
+           </div>
+        <p style="font-size:12px; color:#999; text-align:center;">Scroll to view angles</p>
       </div>
 
-      <div style="margin-bottom: 30px;">
-        <h3 style="margin-bottom: 15px; font-size: 19px;">Payment</h3>
-        <input type="text" placeholder="Card Number" required>
-        <div class="input-group">
-          <input type="text" placeholder="MM/YY" required>
-          <input type="text" placeholder="CVC" required>
+      <div class="info">
+        <h1 id="detailTitle">Product Name</h1>
+        <div class="price" id="detailPrice">$0.00</div>
+        <div class="desc" id="detailDesc">
+          Loading description...
         </div>
+        <button class="primary-btn" id="detailAddBtn">Add to Bag</button>
       </div>
-      
-      <button class="add-btn" style="width: 100%; padding: 18px; font-size: 17px; margin-top: 10px;">Pay Securely</button>
-      <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 12px;">
-        <span onclick="switchPage('cart')" style="color: var(--accent-blue); cursor: pointer;">Return to Bag</span>
-      </p>
-    </form>
+    </div>
   </div>
 </div>
 
-<footer>
-  Copyright © 2023 BuiltShock Inc. All rights reserved. <br>
-  Privacy Policy | Terms of Use | Sales and Refunds
-</footer>
+<div id="contact" class="page">
+  <div class="container" style="text-align: center; padding-top: 100px;">
+    <h1>Get in Touch</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 40px;">We are here to help with your custom builds.</p>
+    
+    <div style="background: white; padding: 40px; border-radius: var(--radius-lg); display: inline-block; box-shadow: var(--shadow-card);">
+      <h3>Email Us</h3>
+      <p style="font-size: 20px; font-weight: 500; color: var(--accent-blue);">
+        gshockmod@outlook.com
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="cart" class="page">
+  <div class="container" style="max-width: 600px; text-align: center;">
+    <h2>Your Bag</h2>
+    <div id="cartItems" style="margin: 40px 0;"></div>
+    <div id="cartTotal" style="font-weight: 600; font-size: 20px;"></div>
+  </div>
+</div>
+
+<div class="admin-panel">
+  <span>ADMIN TOOLS:</span>
+  <span class="admin-toggle" onclick="document.getElementById('logoInput').click()">Upload Logo</span>
+  <span class="admin-toggle" onclick="toggleAdminMode()">Toggle Edit Mode (Upload Product Images)</span>
+</div>
+
+<input type="file" id="productImgInput" accept="image/*" style="display:none">
 
 <script>
-// ---------- MOCK DATA ----------
+// ---------- DATA ----------
 const products = [
-  { id: 1, name: "Mudmaster GWG-2000", price: 800, tag: "New", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gwg-2000-1a1er_1.png" },
-  { id: 2, name: "Frogman GWF-A1000", price: 1000, tag: "Diver", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gwf-a1000-1a2er.png" },
-  { id: 3, name: "G-Steel GST-B400", price: 450, tag: "Best Seller", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/s/gst-b400-1aer_1.png" },
-  { id: 4, name: "Square G-5600", price: 120, tag: "Classic", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gw-m5610u-1er.png" },
-  { id: 5, name: "CasiOak GA-2100", price: 110, tag: "Trending", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/a/ga-2100-1a1er_1.png" },
-  { id: 6, name: "MTG-B3000", price: 1150, tag: "Premium", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/t/mtg-b3000b-1aer.png" }
+  { 
+    id: 1, 
+    name: "Mudmaster GWG-2000", 
+    price: 800, 
+    desc: "Built to withstand mud and rubble. The forged carbon bezel and carbon core guard structure creates a smaller, lighter, yet stronger timepiece.",
+    img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gwg-2000-1a1er_1.png" 
+  },
+  { 
+    id: 2, 
+    name: "Frogman GWF-A1000", 
+    price: 1000, 
+    desc: "The first analog FROGMAN. Shock resistant and ISO 200m diver-level water resistance.",
+    img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gwf-a1000-1a2er.png" 
+  },
+  { 
+    id: 3, 
+    name: "CasiOak GA-2100", 
+    price: 110, 
+    desc: "The slimmest G-SHOCK model. High-strength resin reinforced with carbon fibers makes it possible to create a case that is a mere 11.8 mm thin.",
+    img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/a/ga-2100-1a1er_1.png" 
+  }
 ];
 
 let cart = [];
+let adminMode = false;
+let currentEditingId = null;
 
-// ---------- INITIALIZATION ----------
+// ---------- INIT ----------
 window.onload = () => {
-  renderProducts();
+  renderShop();
 };
 
-// ---------- FUNCTIONS ----------
-function renderProducts() {
+function renderShop() {
   const grid = document.getElementById('productGrid');
   grid.innerHTML = products.map(p => `
-    <div class="product" onclick="addToCart(${p.id})">
-      <div class="product-tag">${p.tag}</div>
-      <img src="${p.img}" alt="${p.name}">
+    <div class="product" onclick="handleProductClick(${p.id})">
+      <div class="upload-overlay" onclick="triggerUpload(event, ${p.id})">📷 Change Image</div>
+      <img src="${p.img}" alt="${p.name}" id="img-${p.id}">
       <h3>${p.name}</h3>
-      <div class="price">$${p.price}</div>
-      <button class="add-btn">Add to Bag</button>
+      <div style="color:#666">$${p.price}</div>
     </div>
   `).join('');
+  updateAdminUI();
 }
 
+// ---------- NAVIGATION ----------
 function switchPage(pageId) {
   document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
   window.scrollTo(0,0);
 }
 
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
+// ---------- PRODUCT DETAILS ----------
+function handleProductClick(id) {
+  // If in admin mode, don't open detail, we might be clicking upload
+  if (adminMode && event.target.classList.contains('upload-overlay')) return;
+
+  const p = products.find(x => x.id === id);
+  
+  document.getElementById('detailTitle').innerText = p.name;
+  document.getElementById('detailPrice').innerText = "$" + p.price;
+  document.getElementById('detailDesc').innerText = p.desc;
+  
+  // Set Main Image
+  const mainImg = document.getElementById('detailMainImg');
+  mainImg.src = p.img;
+  
+  // Create thumbnails (simulated by repeating main image for demo)
+  // In a real app, 'p' would have an array like p.images = [url1, url2]
+  const thumbRow = document.getElementById('thumbRow');
+  thumbRow.innerHTML = `
+    <img src="${p.img}" class="thumb selected" onclick="swapImage(this)">
+    <img src="${p.img}" class="thumb" style="filter:hue-rotate(45deg)" onclick="swapImage(this)">
+    <img src="${p.img}" class="thumb" style="filter:grayscale(100%)" onclick="swapImage(this)">
+    <img src="${p.img}" class="thumb" style="filter:invert(10%)" onclick="swapImage(this)">
+  `;
+
+  // Setup Add Button
+  const btn = document.getElementById('detailAddBtn');
+  btn.onclick = () => addToCart(p);
+
+  switchPage('product-detail');
+}
+
+function swapImage(el) {
+  document.getElementById('detailMainImg').src = el.src;
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ---------- CART ----------
+function addToCart(product) {
   cart.push(product);
-  updateCartUI();
-  
-  // Visual feedback
-  const btn = document.getElementById('cartBtn');
-  btn.style.transform = 'scale(1.1)';
-  setTimeout(() => btn.style.transform = 'scale(1)', 200);
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartUI();
-}
-
-function updateCartUI() {
   document.getElementById('cartCount').innerText = cart.length;
-  
-  const cartItems = document.getElementById('cartItems');
-  if(cart.length === 0) {
-    cartItems.innerHTML = '<div style="text-align:center; color:#86868b; padding:40px;">Your bag is empty.</div>';
-    document.getElementById('total').innerText = '0';
-    return;
+  alert("Added to Bag");
+}
+
+// ---------- ADMIN / IMAGE UPLOAD LOGIC ----------
+function toggleAdminMode() {
+  adminMode = !adminMode;
+  updateAdminUI();
+}
+
+function updateAdminUI() {
+  const overlays = document.querySelectorAll('.upload-overlay');
+  overlays.forEach(el => el.style.display = adminMode ? 'block' : 'none');
+}
+
+function updateLogo(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // Replace text with Image
+      const container = document.getElementById('logoContainer');
+      container.innerHTML = `<img src="${e.target.result}" style="height:30px;">`;
+    }
+    reader.readAsDataURL(input.files[0]);
   }
-
-  let total = 0;
-  cartItems.innerHTML = cart.map((item, index) => {
-    total += item.price;
-    return `
-      <div class="cart-item">
-        <div style="display:flex; align-items:center;">
-          <img src="${item.img}">
-          <div>
-            <div style="font-weight:600;">${item.name}</div>
-            <div style="color:#86868b;">$${item.price}</div>
-          </div>
-        </div>
-        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
-      </div>
-    `;
-  }).join('');
-  
-  document.getElementById('total').innerText = total;
 }
 
-function showCart() {
-  updateCartUI();
-  switchPage('cart');
+function triggerUpload(e, id) {
+  e.stopPropagation(); // Prevent opening product detail
+  currentEditingId = id;
+  document.getElementById('productImgInput').click();
 }
 
-function processPayment() {
-  const btn = document.querySelector('#checkout button');
-  const originalText = btn.innerText;
-  
-  btn.innerText = "Processing...";
-  btn.style.background = "#333";
-  
-  setTimeout(() => {
-    alert("Thank you for your order! Welcome to the family.");
-    cart = [];
-    updateCartUI();
-    switchPage('shop');
-    btn.innerText = originalText;
-    btn.style.background = "var(--accent-blue)";
-  }, 2000);
-}
+// Listen for product image selection
+document.getElementById('productImgInput').addEventListener('change', function() {
+  if (this.files && this.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // Update data model
+      const p = products.find(x => x.id === currentEditingId);
+      p.img = e.target.result;
+      
+      // Update UI immediately
+      document.getElementById(`img-${currentEditingId}`).src = e.target.result;
+    }
+    reader.readAsDataURL(this.files[0]);
+  }
+});
+
 </script>
-
 </body>
 </html>
