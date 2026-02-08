@@ -1,644 +1,322 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Checkout</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuiltShock | Authentic G-Shocks</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        body {
-            background-color: #f8fafc;
-            color: #334155;
-            line-height: 1.6;
-        }
+<style>
+/* ---------- RESET & VARIABLES ---------- */
+:root {
+  --black: #111;
+  --white: #fff;
+  --red: #D32F2F; /* G-Shock Red Accent */
+  --gray: #f4f4f4;
+  --border: 2px solid var(--black);
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+* { box-sizing: border-box; }
 
-        /* Cart Sidebar */
-        .cart-sidebar {
-            position: fixed;
-            right: -400px;
-            top: 0;
-            width: 380px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-            transition: right 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-        }
+body {
+  margin: 0;
+  font-family: 'Roboto Mono', monospace; /* Technical font */
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+}
 
-        .cart-sidebar.active {
-            right: 0;
-        }
+h1, h2, h3, button {
+  font-family: 'Oswald', sans-serif; /* Bold headline font */
+  text-transform: uppercase;
+  margin: 0;
+}
 
-        .cart-header {
-            padding: 24px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* ---------- HEADER ---------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: var(--white);
+  border-bottom: var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-        .cart-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1e293b;
-        }
+.logo-text {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-decoration: none;
+  color: var(--black);
+}
 
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #64748b;
-        }
+.logo-text span { color: var(--red); }
 
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
+.cart-btn {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
 
-        .cart-item {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            border-radius: 12px;
-            background: #f8fafc;
-            margin-bottom: 12px;
-            border: 1px solid #e2e8f0;
-        }
+.cart-btn:hover {
+  background: var(--black);
+  color: var(--white);
+}
 
-        .cart-item-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-right: 16px;
-        }
+.cart-btn.shake { animation: shake 0.4s; }
 
-        .cart-item-details {
-            flex: 1;
-        }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%, 75% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+}
 
-        .cart-item-name {
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #1e293b;
-        }
+/* ---------- HERO SECTION ---------- */
+.hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 80px 20px;
+  text-align: center;
+  border-bottom: var(--border);
+}
 
-        .cart-item-price {
-            color: #64748b;
-            font-weight: 500;
-        }
+.hero h1 {
+  font-size: clamp(40px, 8vw, 80px); /* Responsive text */
+  line-height: 1;
+  margin-bottom: 20px;
+}
 
-        .cart-footer {
-            padding: 24px;
-            border-top: 1px solid #e2e8f0;
-        }
+.hero p {
+  color: #ccc;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #1e293b;
-        }
+/* ---------- CONTAINER ---------- */
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 60px 20px;
+}
 
-        /* Checkout Page */
-        .checkout-container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        }
+/* ---------- GRID ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0; /* Removing gap for a grid-border look */
+  border: var(--border);
+  background: var(--black); /* Borders color */
+}
 
-        .checkout-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
+/* ---------- PRODUCT CARD ---------- */
+.product {
+  background: var(--white);
+  padding: 40px;
+  text-align: left;
+  position: relative;
+  transition: transform 0.2s;
+  border: 1px solid #eee; /* Inner light borders */
+}
 
-        .secure-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
+.product:hover {
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--black); /* Bold highlight */
+}
 
-        .checkout-header h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+.product img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  mix-blend-mode: multiply; /* Helps transparent PNGs blend */
+  cursor: pointer;
+}
 
-        .checkout-subtitle {
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
+.product h3 { font-size: 24px; margin-bottom: 5px; }
+.desc-short { font-size: 12px; color: #666; margin-bottom: 15px; }
 
-        .checkout-body {
-            padding: 40px;
-        }
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
 
-        .checkout-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--red);
+}
 
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e2e8f0;
-        }
+/* ---------- BUTTONS ---------- */
+button.add-btn {
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
 
-        .form-group {
-            margin-bottom: 24px;
-        }
+button.add-btn:hover {
+  background: var(--red);
+}
 
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #475569;
-        }
+/* ---------- CART PAGE ---------- */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  background: #fafafa;
+  margin-bottom: 10px;
+}
+.remove-btn {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
+  padding: 5px 10px;
+  font-size: 10px;
+}
+.remove-btn:hover { background: var(--red); color: white; }
 
-        .form-input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
+/* ---------- CHECKOUT FORM ---------- */
+input {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 2px solid #ccc;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px;
+}
+input:focus {
+  outline: none;
+  border-color: var(--black);
+}
 
-        .form-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
+/* ---------- MODAL ---------- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-        .input-with-icon {
-            position: relative;
-        }
+.modal-content {
+  background: var(--white);
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 4px solid var(--white);
+}
 
-        .input-icon {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-        }
+/* Mobile Layout for Modal */
+@media (max-width: 768px) {
+  .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
+  .grid { gap: 20px; border: none; background: transparent; }
+  .product { border: var(--border); }
+}
 
-        .discount-section {
-            background: #f1f5f9;
-            padding: 24px;
-            border-radius: 12px;
-            margin: 30px 0;
-        }
+.modal-left {
+  background: #f4f4f4;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-left img { max-width: 100%; max-height: 300px; mix-blend-mode: multiply;}
 
-        .discount-input-group {
-            display: flex;
-            gap: 12px;
-        }
+.modal-right { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
 
-        .discount-input {
-            flex: 1;
-            padding: 14px 16px;
-            border: 2px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 1rem;
-        }
+.close {
+  position: absolute;
+  top: 20px; right: 30px;
+  color: white; font-size: 40px; cursor: pointer;
+}
 
-        .apply-btn {
-            background: #10b981;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
+/* ---------- UTILITIES ---------- */
+.page { display: none; animation: fadeIn 0.3s; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
 
-        .apply-btn:hover {
-            background: #059669;
-        }
-
-        .order-summary {
-            background: #f8fafc;
-            padding: 30px;
-            border-radius: 12px;
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .summary-total {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #cbd5e1;
-        }
-
-        .secure-checkout-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 20px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: transform 0.3s ease;
-            margin-top: 30px;
-        }
-
-        .secure-checkout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .payment-icons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 24px;
-            opacity: 0.7;
-        }
-
-        /* Buttons */
-        .cart-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #667eea;
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.5rem;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            z-index: 999;
-        }
-
-        .back-to-cart {
-            background: #64748b;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            margin-right: 12px;
-        }
-
-        @media (max-width: 768px) {
-            .cart-sidebar {
-                width: 100%;
-                right: -100%;
-            }
-            
-            .checkout-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .checkout-container {
-                margin: 20px;
-            }
-        }
-    </style>
+footer {
+  background: var(--black);
+  color: #666;
+  text-align: center;
+  padding: 40px;
+  font-size: 12px;
+  border-top: 5px solid var(--red);
+}
+</style>
 </head>
+
 <body>
-    <!-- Cart Button -->
-    <button class="cart-toggle" id="cartToggle">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count">2</span>
-    </button>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h2>Your Cart</h2>
-            <button class="close-cart" id="closeCart">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="cart-items" id="cartItems">
-            <!-- Cart items will be dynamically inserted here -->
-        </div>
-        
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span class="total-amount">$199.98</span>
-            </div>
-            <button class="secure-checkout-btn" id="goToCheckout">
-                <i class="fas fa-lock"></i>
-                Secure Checkout
-            </button>
-        </div>
+<header>
+  <a href="#" class="logo-text" onclick="switchPage('shop')">BUILT<span>SHOCK</span></a>
+  
+  <div id="cartBtn" class="cart-btn" onclick="showCart()">
+    CART [<span id="cartCount">0</span>]
+  </div>
+</header>
+
+<div id="shop" class="page active">
+  <div class="hero">
+    <h1>ABSOLUTE TOUGHNESS</h1>
+    <p>Engineered to withstand the harshest environments on Earth.</p>
+  </div>
+
+  <div class="container">
+    <h2>NEW ARRIVALS</h2>
+    <br>
+    <div class="grid" id="productGrid">
+      </div>
+  </div>
+</div>
+
+<div id="cart" class="page">
+  <div class="container" style="max-width: 800px;">
+    <h2>YOUR GEAR</h2>
+    <div style="height: 2px; background: var(--black); width: 50px; margin: 20px 0;"></div>
+    
+    <div id="cartItems"></div>
+    
+    <div style="margin-top: 30px; text-align: right;">
+      <h3>TOTAL: $<span id="total">0</span></h3>
+      <br>
+      <button class="add-btn" style="width: 100%; padding: 20px;" onclick="switchPage('checkout')">PROCEED TO CHECKOUT</button>
+      <br><br>
+      <button style="background:none; border:none; text-decoration:underline; cursor:pointer;" onclick="switchPage('shop')">Continue Shopping</button>
     </div>
+  </div>
+</div>
 
-    <!-- Checkout Page -->
-    <div class="container" id="checkoutPage" style="display: none;">
-        <div class="checkout-container">
-            <div class="checkout-header">
-                <div class="secure-badge">
-                    <i class="fas fa-shield-alt"></i>
-                    100% Secure Checkout
-                </div>
-                <h1>Complete Your Purchase</h1>
-                <p class="checkout-subtitle">Protected by industry-leading encryption</p>
-            </div>
-            
-            <div class="checkout-body">
-                <div class="checkout-grid">
-                    <!-- Billing Information -->
-                    <div>
-                        <h3 class="section-title">Billing Information</h3>
-                        <form id="checkoutForm">
-                            <div class="form-group">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-input" placeholder="John Smith" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-input" placeholder="john@example.com" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Address</label>
-                                <input type="text" class="form-input" placeholder="123 Main St" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Card Number</label>
-                                <div class="input-with-icon">
-                                    <input type="text" class="form-input" placeholder="1234 5678 9012 3456" required>
-                                    <i class="fas fa-credit-card input-icon"></i>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Order Summary -->
-                    <div>
-                        <h3 class="section-title">Order Summary</h3>
-                        <div class="order-summary">
-                            <div class="summary-item">
-                                <span>Subtotal</span>
-                                <span>$179.98</span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Shipping</span>
-                                <span>$20.00</span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Tax</span>
-                                <span>$14.40</span>
-                            </div>
-                            <div class="summary-item summary-total">
-                                <span>Total</span>
-                                <span>$214.38</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Discount Code Section -->
-                        <div class="discount-section">
-                            <h3 class="section-title">Discount Code</h3>
-                            <div class="discount-input-group">
-                                <input type="text" class="discount-input" placeholder="Enter promo code">
-                                <button class="apply-btn" id="applyDiscount">Apply</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Cart Items in Checkout -->
-                        <h3 class="section-title">Your Items</h3>
-                        <div id="checkoutCartItems">
-                            <!-- Cart items will be copied here -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Secure Checkout Button -->
-                <button class="secure-checkout-btn" id="submitCheckout">
-                    <i class="fas fa-lock"></i>
-                    Complete Secure Checkout
-                </button>
-                
-                <!-- Back to Cart Button -->
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="back-to-cart" id="backToCart">
-                        <i class="fas fa-arrow-left"></i>
-                        Back to Cart
-                    </button>
-                </div>
-                
-                <!-- Payment Icons -->
-                <div class="payment-icons">
-                    <i class="fab fa-cc-visa fa-2x"></i>
-                    <i class="fab fa-cc-mastercard fa-2x"></i>
-                    <i class="fab fa-cc-amex fa-2x"></i>
-                    <i class="fab fa-cc-paypal fa-2x"></i>
-                    <i class="fas fa-lock fa-2x"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container" id="mainContent">
-        <h1>Welcome to Our Store</h1>
-        <p>Click the cart icon to view your items or proceed to checkout.</p>
-    </div>
-
-    <script>
-        // Sample product data
-        const cartItems = [
-            {
-                id: 1,
-                name: "Premium Wireless Headphones",
-                price: 89.99,
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
-                quantity: 1
-            },
-            {
-                id: 2,
-                name: "Smart Watch Series 5",
-                price: 109.99,
-                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w-400&h=400&fit=crop",
-                quantity: 1
-            }
-        ];
-
-        // DOM Elements
-        const cartToggle = document.getElementById('cartToggle');
-        const cartSidebar = document.getElementById('cartSidebar');
-        const closeCart = document.getElementById('closeCart');
-        const cartItemsContainer = document.getElementById('cartItems');
-        const checkoutPage = document.getElementById('checkoutPage');
-        const mainContent = document.getElementById('mainContent');
-        const goToCheckout = document.getElementById('goToCheckout');
-        const backToCart = document.getElementById('backToCart');
-        const checkoutCartItems = document.getElementById('checkoutCartItems');
-        const applyDiscount = document.getElementById('applyDiscount');
-        const submitCheckout = document.getElementById('submitCheckout');
-        const checkoutForm = document.getElementById('checkoutForm');
-
-        // Initialize cart
-        function renderCartItems() {
-            cartItemsContainer.innerHTML = '';
-            checkoutCartItems.innerHTML = '';
-            
-            let total = 0;
-            
-            cartItems.forEach(item => {
-                total += item.price * item.quantity;
-                
-                // Cart sidebar item
-                const cartItemHTML = `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">$${item.price.toFixed(2)} × ${item.quantity}</div>
-                        </div>
-                        <div class="cart-item-total">$${(item.price * item.quantity).toFixed(2)}</div>
-                    </div>
-                `;
-                cartItemsContainer.innerHTML += cartItemHTML;
-                
-                // Checkout page item
-                const checkoutItemHTML = `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">$${item.price.toFixed(2)} × ${item.quantity}</div>
-                        </div>
-                    </div>
-                `;
-                checkoutCartItems.innerHTML += checkoutItemHTML;
-            });
-            
-            // Update total
-            document.querySelector('.total-amount').textContent = `$${total.toFixed(2)}`;
-            document.querySelector('.summary-total span:last-child').textContent = `$${(total + 20 + 14.40).toFixed(2)}`;
-        }
-
-        // Event Listeners
-        cartToggle.addEventListener('click', () => {
-            cartSidebar.classList.add('active');
-        });
-
-        closeCart.addEventListener('click', () => {
-            cartSidebar.classList.remove('active');
-        });
-
-        goToCheckout.addEventListener('click', () => {
-            cartSidebar.classList.remove('active');
-            mainContent.style.display = 'none';
-            checkoutPage.style.display = 'block';
-        });
-
-        backToCart.addEventListener('click', () => {
-            checkoutPage.style.display = 'none';
-            mainContent.style.display = 'block';
-            cartSidebar.classList.add('active');
-        });
-
-        applyDiscount.addEventListener('click', () => {
-            const discountInput = document.querySelector('.discount-input');
-            const discountCode = discountInput.value.trim();
-            
-            if (discountCode === 'SAVE10') {
-                alert('Discount applied! 10% off your order.');
-                discountInput.style.borderColor = '#10b981';
-                discountInput.style.backgroundColor = '#f0fdf4';
-            } else if (discountCode) {
-                alert('Invalid discount code');
-                discountInput.style.borderColor = '#ef4444';
-            }
-        });
-
-        submitCheckout.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            if (checkoutForm.checkValidity()) {
-                // Show loading state
-                submitCheckout.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                submitCheckout.disabled = true;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    alert('Order placed successfully! Thank you for your purchase.');
-                    submitCheckout.innerHTML = '<i class="fas fa-check"></i> Order Complete!';
-                    
-                    // Reset after 2 seconds
-                    setTimeout(() => {
-                        submitCheckout.innerHTML = '<i class="fas fa-lock"></i> Complete Secure Checkout';
-                        submitCheckout.disabled = false;
-                        checkoutPage.style.display = 'none';
-                        mainContent.style.display = 'block';
-                        cartSidebar.classList.remove('active');
-                    }, 2000);
-                }, 1500);
-            } else {
-                alert('Please fill in all required fields correctly.');
-            }
-        });
-
-        // Close cart when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!cartSidebar.contains(e.target) && !cartToggle.contains(e.target) && cartSidebar.classList.contains('active')) {
-                cartSidebar.classList.remove('active');
-            }
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', renderCartItems);
-    </script>
-</body>
-</html>
+<div id="checkout" class="page">
+  <div class="container" style="max-width: 600px;">
+    <h2>SECURE CHECKOUT</h2>
+    <p style="margin-bottom: 30px; font-size: 14px; color: #666;">Enter your details to finalize your order.</p>
+    
+    <form onsubmit="event.preventDefault(); pay();">
+      <input type="text" placeholder="FULL NAME" required>
+      <input type="email" placeholder="EMAIL ADDRESS" required>
+      <input type="text" placeholder="SHIPPING ADDRESS" required>
+      <input type="text" placeholder="CARD NUMBER" required>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <input type="text" placeholder="MM/YY" required>
+        <input type="text" placeholder="CVC" required>
+      </div>
