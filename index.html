@@ -3,319 +3,443 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BuiltShock | Authentic G-Shocks</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>BuiltShock | Premium Timepieces</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap" rel="stylesheet">
 
 <style>
-/* ---------- RESET & VARIABLES ---------- */
+/* ---------- APPLE-INSPIRED VARIABLES ---------- */
 :root {
-  --black: #111;
-  --white: #fff;
-  --red: #D32F2F; /* G-Shock Red Accent */
-  --gray: #f4f4f4;
-  --border: 2px solid var(--black);
+  --bg-body: #f5f5f7; /* Apple's signature light gray background */
+  --bg-card: #ffffff;
+  --text-main: #1d1d1f; /* Soft black */
+  --text-secondary: #86868b; /* Apple gray */
+  --accent-blue: #0071e3; /* Apple CTA Blue */
+  --accent-blue-hover: #0077ed;
+  --radius-lg: 18px;
+  --radius-sm: 12px;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --nav-blur: rgba(255, 255, 255, 0.8);
+  --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: 'Roboto Mono', monospace; /* Technical font */
-  background: var(--white);
-  color: var(--black);
-  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, button {
-  font-family: 'Oswald', sans-serif; /* Bold headline font */
-  text-transform: uppercase;
-  margin: 0;
-}
+h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; }
+button { font-family: inherit; }
 
-/* ---------- HEADER ---------- */
+/* ---------- HEADER (Frosted Glass) ---------- */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
-  background: var(--white);
-  border-bottom: var(--border);
+  padding: 0 40px;
+  height: 54px; /* Apple standard nav height */
+  background: var(--nav-blur);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .logo-text {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -1px;
+  font-size: 18px;
+  font-weight: 600;
   text-decoration: none;
-  color: var(--black);
+  color: var(--text-main);
+  transition: opacity 0.2s;
 }
-
-.logo-text span { color: var(--red); }
+.logo-text:hover { opacity: 0.7; }
 
 .cart-btn {
+  font-size: 13px;
+  color: var(--text-main);
   cursor: pointer;
-  font-weight: 700;
   padding: 8px 16px;
-  border: 2px solid transparent;
-  transition: 0.2s;
+  border-radius: 20px;
+  transition: var(--transition);
+  background: rgba(0,0,0,0.05);
 }
-
-.cart-btn:hover {
-  background: var(--black);
-  color: var(--white);
-}
-
-.cart-btn.shake { animation: shake 0.4s; }
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25%, 75% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-}
+.cart-btn:hover { background: rgba(0,0,0,0.1); }
 
 /* ---------- HERO SECTION ---------- */
 .hero {
-  background: var(--black);
-  color: var(--white);
-  padding: 80px 20px;
+  background: var(--bg-card);
+  padding: 120px 20px 80px;
   text-align: center;
-  border-bottom: var(--border);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .hero h1 {
-  font-size: clamp(40px, 8vw, 80px); /* Responsive text */
-  line-height: 1;
-  margin-bottom: 20px;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #000;
 }
 
 .hero p {
-  color: #ccc;
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
 }
 
 /* ---------- CONTAINER ---------- */
 .container {
-  max-width: 1400px;
+  max-width: 1080px; /* Tighter container for premium feel */
   margin: auto;
-  padding: 60px 20px;
+  padding: 80px 20px;
 }
 
-/* ---------- GRID ---------- */
+.section-title {
+  font-size: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* ---------- PRODUCT GRID ---------- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 0; /* Removing gap for a grid-border look */
-  border: var(--border);
-  background: var(--black); /* Borders color */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
 }
 
 /* ---------- PRODUCT CARD ---------- */
 .product {
-  background: var(--white);
+  background: var(--bg-card);
   padding: 40px;
-  text-align: left;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
   position: relative;
-  transition: transform 0.2s;
-  border: 1px solid #eee; /* Inner light borders */
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
 
 .product:hover {
-  z-index: 2;
-  box-shadow: 0 0 0 4px var(--black); /* Bold highlight */
+  transform: scale(1.02);
+  box-shadow: var(--shadow-hover);
 }
 
 .product img {
   width: 100%;
-  height: 250px;
-  object-fit: contain;
-  margin-bottom: 20px;
-  mix-blend-mode: multiply; /* Helps transparent PNGs blend */
-  cursor: pointer;
+  max-width: 220px;
+  height: auto;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+  transition: transform 0.5s ease;
 }
 
-.product h3 { font-size: 24px; margin-bottom: 5px; }
-.desc-short { font-size: 12px; color: #666; margin-bottom: 15px; }
+.product:hover img { transform: translateY(-5px) scale(1.05); }
 
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
+.product-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: #bf4800; /* Apple "New" orange */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.product h3 {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: var(--text-main);
 }
 
 .price {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--red);
+  font-size: 17px;
+  color: var(--text-main);
+  margin-bottom: 20px;
 }
 
 /* ---------- BUTTONS ---------- */
 button.add-btn {
-  background: var(--black);
-  color: var(--white);
+  background: var(--accent-blue);
+  color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 22px;
   font-size: 14px;
-  font-weight: 700;
+  border-radius: 980px; /* Pill shape */
   cursor: pointer;
-  letter-spacing: 1px;
+  transition: var(--transition);
+  font-weight: 500;
 }
 
 button.add-btn:hover {
-  background: var(--red);
+  background: var(--accent-blue-hover);
+  transform: translateY(-1px);
 }
 
-/* ---------- CART PAGE ---------- */
+/* ---------- CART & CHECKOUT ---------- */
 .cart-item {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 20px;
-  border-bottom: 1px solid #ddd;
-  background: #fafafa;
-  margin-bottom: 10px;
+  padding: 25px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
+.cart-item img { width: 60px; height: auto; margin-right: 20px; }
+.cart-item-info { flex-grow: 1; }
+
 .remove-btn {
   background: transparent;
-  color: var(--red);
-  border: 1px solid var(--red);
-  padding: 5px 10px;
-  font-size: 10px;
+  color: var(--accent-blue);
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
 }
-.remove-btn:hover { background: var(--red); color: white; }
+.remove-btn:hover { text-decoration: underline; }
 
-/* ---------- CHECKOUT FORM ---------- */
+/* ---------- FORM ELEMENTS ---------- */
+form { margin-top: 30px; }
+
 input {
   display: block;
   width: 100%;
-  padding: 15px;
+  padding: 18px 16px;
   margin-bottom: 15px;
-  border: 2px solid #ccc;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 16px;
+  border: 1px solid #d2d2d7;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 17px;
+  background: rgba(255,255,255,0.8);
+  transition: var(--transition);
 }
+
 input:focus {
   outline: none;
-  border-color: var(--black);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
 }
 
-/* ---------- MODAL ---------- */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  z-index: 200;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
+input::placeholder { color: #86868b; }
 
-.modal-content {
-  background: var(--white);
-  width: 100%;
-  max-width: 900px;
+.input-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 4px solid var(--white);
-}
-
-/* Mobile Layout for Modal */
-@media (max-width: 768px) {
-  .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
-  .grid { gap: 20px; border: none; background: transparent; }
-  .product { border: var(--border); }
-}
-
-.modal-left {
-  background: #f4f4f4;
-  padding: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-left img { max-width: 100%; max-height: 300px; mix-blend-mode: multiply;}
-
-.modal-right { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-
-.close {
-  position: absolute;
-  top: 20px; right: 30px;
-  color: white; font-size: 40px; cursor: pointer;
+  gap: 15px;
 }
 
 /* ---------- UTILITIES ---------- */
-.page { display: none; animation: fadeIn 0.3s; }
-.page.active { display: block; }
-@keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+.page { display: none; opacity: 0; transition: opacity 0.5s; }
+.page.active { display: block; opacity: 1; animation: fadeInUp 0.6s ease forwards; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 footer {
-  background: var(--black);
-  color: #666;
+  background: var(--bg-body);
+  color: var(--text-secondary);
   text-align: center;
-  padding: 40px;
+  padding: 60px 20px;
   font-size: 12px;
-  border-top: 5px solid var(--red);
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <a href="#" class="logo-text" onclick="switchPage('shop')">BUILT<span>SHOCK</span></a>
-  
+  <a href="#" class="logo-text" onclick="switchPage('shop')">BuiltShock</a>
   <div id="cartBtn" class="cart-btn" onclick="showCart()">
-    CART [<span id="cartCount">0</span>]
+    Bag (<span id="cartCount">0</span>)
   </div>
 </header>
 
 <div id="shop" class="page active">
   <div class="hero">
-    <h1>ABSOLUTE TOUGHNESS</h1>
-    <p>Engineered to withstand the harshest environments on Earth.</p>
+    <h1>Absolute Toughness.</h1>
+    <p>Engineered to withstand the harshest environments on Earth.<br>Refined for everyday life.</p>
   </div>
 
   <div class="container">
-    <h2>NEW ARRIVALS</h2>
-    <br>
+    <h2 class="section-title">The Collection.</h2>
     <div class="grid" id="productGrid">
       </div>
   </div>
 </div>
 
 <div id="cart" class="page">
-  <div class="container" style="max-width: 800px;">
-    <h2>YOUR GEAR</h2>
-    <div style="height: 2px; background: var(--black); width: 50px; margin: 20px 0;"></div>
+  <div class="container" style="max-width: 700px;">
+    <h2 class="section-title">Your Bag.</h2>
+    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">Free delivery and free returns.</p>
     
     <div id="cartItems"></div>
     
-    <div style="margin-top: 30px; text-align: right;">
-      <h3>TOTAL: $<span id="total">0</span></h3>
-      <br>
-      <button class="add-btn" style="width: 100%; padding: 20px;" onclick="switchPage('checkout')">PROCEED TO CHECKOUT</button>
-      <br><br>
-      <button style="background:none; border:none; text-decoration:underline; cursor:pointer;" onclick="switchPage('shop')">Continue Shopping</button>
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 24px; font-weight: 600;">Total <span id="total" style="color:var(--text-secondary); margin-left: 10px;">$0</span></div>
+      <button class="add-btn" style="padding: 15px 40px; font-size: 17px;" onclick="switchPage('checkout')">Check Out</button>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <span onclick="switchPage('shop')" style="color: var(--accent-blue); cursor: pointer; font-size: 15px;">Continue Shopping</span>
     </div>
   </div>
 </div>
 
 <div id="checkout" class="page">
-  <div class="container" style="max-width: 600px;">
-    <h2>SECURE CHECKOUT</h2>
-    <p style="margin-bottom: 30px; font-size: 14px; color: #666;">Enter your details to finalize your order.</p>
+  <div class="container" style="max-width: 500px;">
+    <h2 class="section-title">Checkout.</h2>
     
-    <form onsubmit="event.preventDefault(); pay();">
-      <input type="text" placeholder="FULL NAME" required>
-      <input type="email" placeholder="EMAIL ADDRESS" required>
-      <input type="text" placeholder="SHIPPING ADDRESS" required>
-      <input type="text" placeholder="CARD NUMBER" required>
-      
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-        <input type="text" placeholder="MM/YY" required>
-        <input type="text" placeholder="CVC" required>
+    <form onsubmit="event.preventDefault(); processPayment();">
+      <div style="margin-bottom: 30px;">
+        <h3 style="margin-bottom: 15px; font-size: 19px;">Shipping</h3>
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+        <input type="text" placeholder="Street Address" required>
+        <input type="email" placeholder="Email Address" required>
       </div>
+
+      <div style="margin-bottom: 30px;">
+        <h3 style="margin-bottom: 15px; font-size: 19px;">Payment</h3>
+        <input type="text" placeholder="Card Number" required>
+        <div class="input-group">
+          <input type="text" placeholder="MM/YY" required>
+          <input type="text" placeholder="CVC" required>
+        </div>
+      </div>
+      
+      <button class="add-btn" style="width: 100%; padding: 18px; font-size: 17px; margin-top: 10px;">Pay Securely</button>
+      <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 12px;">
+        <span onclick="switchPage('cart')" style="color: var(--accent-blue); cursor: pointer;">Return to Bag</span>
+      </p>
+    </form>
+  </div>
+</div>
+
+<footer>
+  Copyright © 2023 BuiltShock Inc. All rights reserved. <br>
+  Privacy Policy | Terms of Use | Sales and Refunds
+</footer>
+
+<script>
+// ---------- MOCK DATA ----------
+const products = [
+  { id: 1, name: "Mudmaster GWG-2000", price: 800, tag: "New", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gwg-2000-1a1er_1.png" },
+  { id: 2, name: "Frogman GWF-A1000", price: 1000, tag: "Diver", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gwf-a1000-1a2er.png" },
+  { id: 3, name: "G-Steel GST-B400", price: 450, tag: "Best Seller", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/s/gst-b400-1aer_1.png" },
+  { id: 4, name: "Square G-5600", price: 120, tag: "Classic", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/w/gw-m5610u-1er.png" },
+  { id: 5, name: "CasiOak GA-2100", price: 110, tag: "Trending", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/a/ga-2100-1a1er_1.png" },
+  { id: 6, name: "MTG-B3000", price: 1150, tag: "Premium", img: "https://g-shock.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/m/t/mtg-b3000b-1aer.png" }
+];
+
+let cart = [];
+
+// ---------- INITIALIZATION ----------
+window.onload = () => {
+  renderProducts();
+};
+
+// ---------- FUNCTIONS ----------
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = products.map(p => `
+    <div class="product" onclick="addToCart(${p.id})">
+      <div class="product-tag">${p.tag}</div>
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <div class="price">$${p.price}</div>
+      <button class="add-btn">Add to Bag</button>
+    </div>
+  `).join('');
+}
+
+function switchPage(pageId) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  cart.push(product);
+  updateCartUI();
+  
+  // Visual feedback
+  const btn = document.getElementById('cartBtn');
+  btn.style.transform = 'scale(1.1)';
+  setTimeout(() => btn.style.transform = 'scale(1)', 200);
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  document.getElementById('cartCount').innerText = cart.length;
+  
+  const cartItems = document.getElementById('cartItems');
+  if(cart.length === 0) {
+    cartItems.innerHTML = '<div style="text-align:center; color:#86868b; padding:40px;">Your bag is empty.</div>';
+    document.getElementById('total').innerText = '0';
+    return;
+  }
+
+  let total = 0;
+  cartItems.innerHTML = cart.map((item, index) => {
+    total += item.price;
+    return `
+      <div class="cart-item">
+        <div style="display:flex; align-items:center;">
+          <img src="${item.img}">
+          <div>
+            <div style="font-weight:600;">${item.name}</div>
+            <div style="color:#86868b;">$${item.price}</div>
+          </div>
+        </div>
+        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('total').innerText = total;
+}
+
+function showCart() {
+  updateCartUI();
+  switchPage('cart');
+}
+
+function processPayment() {
+  const btn = document.querySelector('#checkout button');
+  const originalText = btn.innerText;
+  
+  btn.innerText = "Processing...";
+  btn.style.background = "#333";
+  
+  setTimeout(() => {
+    alert("Thank you for your order! Welcome to the family.");
+    cart = [];
+    updateCartUI();
+    switchPage('shop');
+    btn.innerText = originalText;
+    btn.style.background = "var(--accent-blue)";
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
